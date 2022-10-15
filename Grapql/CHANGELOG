@@ -1,0 +1,4 @@
+- run BE npm run server
+- file schema gồm query (truy vấn cơ sơ dư liệu), mutation dùng để thao tác như edit, add, delete(sường cơ sơ dữ liệu)
+- resolvers phụ thuộc vào schema để thao tác dư liệu trong database
+- model là build ra entity của mongodb
