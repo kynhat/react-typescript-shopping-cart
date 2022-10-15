@@ -3,7 +3,8 @@ import Button from '@material-ui/core/Button';
 import { CartItemType } from '../Home/HomePage';
 // Styles
 import { Wrapper } from './CartItem.styles';
-
+// import IconButton from '@mui/material/IconButton';
+// import DeleteIcon from '@mui/icons-material/Delete';
 type Props = {
   item: CartItemType;
   addToCart: (clickedItem: CartItemType) => void;

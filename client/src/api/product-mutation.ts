@@ -1,4 +1,5 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
+import { log } from 'console';
 
 export const  PRODUCT = gql`
   query products {
@@ -6,6 +7,11 @@ export const  PRODUCT = gql`
       id
       name
       image
+      price
     }
   }
 `;
+export const GetProduct = () => {
+  const {data} = useQuery(PRODUCT);
+  return data;
+}

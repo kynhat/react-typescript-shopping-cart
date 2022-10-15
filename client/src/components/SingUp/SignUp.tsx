@@ -8,6 +8,13 @@ import {
 } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { log } from "console";
+import {
+  useAccountMutation,
+} from "../../api/account-mutation";
+import {useNavigate} from 'react-router-dom';
 
 interface IFormInput {
   email: string;
@@ -24,19 +31,58 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
 }));
+
+
+const schema = yup.object().shape({
+  email: yup.string().required().email(),
+  firstName: yup.string().required().min(2).max(25),
+  password: yup.string().required().min(8).max(120),
+});
+
+
 const SignUp = () => {
   const {
     register,
     handleSubmit,
-  } = useForm<IFormInput>();
+    formState: { errors },
+  } = useForm<IFormInput>({
+    resolver: yupResolver(schema),
+  });
 
   const { heading, submitButton } = useStyles();
-
   const [json, setJson] = useState<string>();
+  const [createAccount] = useAccountMutation();
+  const navigate = useNavigate();
 
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = async (data: IFormInput) => {
     setJson(JSON.stringify(data));
+    console.log("JSON.stringify(data)", JSON.stringify(data));
+    await createAccount({
+      variables: {
+        username: data.firstName,
+        password: data.password,
+      },
+    }).then(data => {
+      console.log("data", data);
+      navigate('/login')
+    });
   };
+
+  //   const Registration = async () => {
+  //   try {
+  //     await createAccount({
+  //       variables: {
+  //         username: "caokynhat",
+  //         password: "12345689",
+  //       },
+  //     }).then(data => {
+  //       console.log("data", data);
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   return (
     <Container maxWidth="xs">
       <Typography className={heading} variant="h3">
@@ -48,6 +94,7 @@ const SignUp = () => {
           variant="outlined"
           margin="normal"
           label="Email"
+          error={!!errors.email?.message}
           fullWidth
           required
         />
@@ -56,6 +103,7 @@ const SignUp = () => {
           variant="outlined"
           margin="normal"
           label="First Name"
+          error={!!errors.firstName?.message}
           fullWidth
           required
         />
@@ -64,6 +112,7 @@ const SignUp = () => {
           variant="outlined"
           margin="normal"
           label="Password"
+          error={!!errors.password?.message}
           type="password"
           fullWidth
           required
@@ -77,15 +126,6 @@ const SignUp = () => {
         >
           Sign Up
         </Button>
-        {json && (
-          <>
-            <Typography variant="body1">
-              Below is the JSON that would normally get passed to the server
-              when a form gets submitted
-            </Typography>
-            <Typography variant="body2">{json}</Typography>
-          </>
-        )}
       </form>
     </Container>
   );

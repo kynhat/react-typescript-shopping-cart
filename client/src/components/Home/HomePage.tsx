@@ -9,8 +9,10 @@ import Grid from "@material-ui/core/Grid";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import Navbar from "../Navbar/Navbar";
+import { GetProduct } from "../../api/product-mutation";
 // Styles
 import { Wrapper, StyledButton } from "./HomePage.styles";
+
 // Types
 export type CartItemType = {
   id: number;
@@ -22,22 +24,38 @@ export type CartItemType = {
   amount: number;
 };
 
-const getProducts = async (): Promise<CartItemType[]> =>
-  await (await fetch("https://fakestoreapi.com/products")).json();
+// export type CheckoutItemType = {
+//   id: number;
+//   name: string;
+//   image: string;
+//   price: number;
+//   quantity: number;
+//   totalprice: number;
+// };
+
+// const getProducts = async (): Promise<CartItemType[]> =>
+//   await (await fetch("https://fakestoreapi.com/products")).json();
+
 
 const HomePage = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
-  const { data, isLoading, error } = useQuery<CartItemType[]>(
-    "products",
-    getProducts
-  );
-  console.log(data);
+  // const { data, isLoading, error } = useQuery<CartItemType[]>(
+  //   "products",
+  //   getProducts
+  // );
+
+  const listProduct = GetProduct();
+  if (listProduct == undefined) {
+    return <LinearProgress />;
+  }
+
 
   //total cart items when add cart
   const getTotalItems = (items: CartItemType[]) => {
     return items.reduce((ack: number, item) => ack + item.amount, 0);
-  }
+  };
+
   const handleAddToCart = (clickedItem: CartItemType) => {
     setCartItems(prev => {
       // 1. Is the item already added in the cart?
@@ -68,12 +86,12 @@ const HomePage = () => {
     );
   };
 
-  if (isLoading) return <LinearProgress />;
-  if (error) return <div>Something went wrong ...</div>;
+  // if (isLoading) return <LinearProgress />;
+  // if (error) return <div>Something went wrong ...</div>;
 
   return (
     <Wrapper>
-      <Navbar/>
+      <Navbar />
       <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart
           cartItems={cartItems}
@@ -87,9 +105,15 @@ const HomePage = () => {
           <AddShoppingCartIcon />
         </Badge>
       </StyledButton>
-      
+
       <Grid container spacing={3}>
-        {data?.map(item => (
+        {/* {data?.map(item => (
+          <Grid item key={item.id} xs={12} sm={4}>
+            <Item item={item} handleAddToCart={handleAddToCart} />
+          </Grid>
+        ))} */}
+
+        {listProduct?.products.map((item: any) => (
           <Grid item key={item.id} xs={12} sm={4}>
             <Item item={item} handleAddToCart={handleAddToCart} />
           </Grid>

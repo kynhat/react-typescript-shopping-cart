@@ -20,6 +20,10 @@ import { useQuery } from "@apollo/client";
 import { log } from "console";
 import {useNavigate} from 'react-router-dom';
 
+import {
+  CreateCheckoutMutation,
+} from "../../api/checkout-mutation";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -64,18 +68,33 @@ const initialState: State = {
 const Login = () => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(loginReducer, initialState);
-  const [createAccount] = useAccountMutation();
+  // const [createAccount] = useAccountMutation();
   const navigate = useNavigate();
+  const [createCheckout] = CreateCheckoutMutation();
 
 
 
 
   // const Registration = async () => {
   //   try {
-  //     await createAccount({
+  //     await createCheckout({
   //       variables: {
-  //         username: "caokynhat",
-  //         password: "12345689",
+  //         address: "caokynhat",
+  //         amount: 12000,
+  //         product: [
+  //           {
+  //             name: 'tivi',
+  //             price: 1000,
+  //             quantity: 2,
+  //             totalprice: 2000
+  //           },
+  //           {
+  //             name: 'ssse dap',
+  //             price: 1000,
+  //             quantity: 2,
+  //             totalprice: 2000
+  //           }
+  //         ],
   //       },
   //     }).then(data => {
   //       console.log("data", data);
@@ -84,7 +103,7 @@ const Login = () => {
   //     console.error(error);
   //   }
   // };
-
+  // Registration();
   useEffect(() => {
     if (state.username.trim() && state.password.trim()) {
       dispatch({
@@ -118,13 +137,17 @@ const Login = () => {
         type: ActionType.LOGINSUCCESS,
         payload: "Login Successfully",
       });
-      navigate('/home')
+      navigate('/')
     } else {
       dispatch({
         type: ActionType.LOGINFAILED,
         payload: "Incorrect username or password",
       });
     }
+  };
+
+  const handleRegistration = async () => {
+    navigate('/signUp')
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -197,7 +220,7 @@ const Login = () => {
             size="large"
             color="primary"
             className={classes.loginBtn}
-            onClick={handleLogin}
+            onClick={handleRegistration}
           >
             Register
           </Button>
