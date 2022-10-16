@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
 // Components
 import Item from "../Item/Item";
 import Cart from "../Cart/Cart";
@@ -10,7 +9,6 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import Navbar from "../Navbar/Navbar";
 import { GetProduct } from "../../api/product-mutation";
-// Styles
 import { Wrapper, StyledButton } from "./HomePage.styles";
 
 // Types
@@ -25,26 +23,9 @@ export type CartItemType = {
   amount: number;
 };
 
-// export type CheckoutItemType = {
-//   id: number;
-//   name: string;
-//   image: string;
-//   price: number;
-//   quantity: number;
-//   totalprice: number;
-// };
-
-// const getProducts = async (): Promise<CartItemType[]> =>
-//   await (await fetch("https://fakestoreapi.com/products")).json();
-
-
 const HomePage = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
-  // const { data, isLoading, error } = useQuery<CartItemType[]>(
-  //   "products",
-  //   getProducts
-  // );
 
   const listProduct = GetProduct();
   if (listProduct == undefined) {
@@ -108,12 +89,6 @@ const HomePage = () => {
       </StyledButton>
 
       <Grid container spacing={3}>
-        {/* {data?.map(item => (
-          <Grid item key={item.id} xs={12} sm={4}>
-            <Item item={item} handleAddToCart={handleAddToCart} />
-          </Grid>
-        ))} */}
-
         {listProduct?.products.map((item: any) => (
           <Grid item key={item.id} xs={12} sm={4}>
             <Item item={item} handleAddToCart={handleAddToCart} />

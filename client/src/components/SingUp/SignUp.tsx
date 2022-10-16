@@ -64,40 +64,17 @@ const SignUp = () => {
       },
     }).then(data => {
       console.log("data", data);
-      navigate('/login')
+      navigate('/login');
     });
   };
-
-  //   const Registration = async () => {
-  //   try {
-  //     await createAccount({
-  //       variables: {
-  //         username: "caokynhat",
-  //         password: "12345689",
-  //       },
-  //     }).then(data => {
-  //       console.log("data", data);
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <Container maxWidth="xs">
       <Typography className={heading} variant="h3">
         Sign Up Form
       </Typography>
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        {/* <TextField
-          {...register("email")}
-          variant="outlined"
-          margin="normal"
-          label="Email"
-          error={!!errors.email?.message}
-          fullWidth
-          required
-        /> */}
         <TextField
           {...register("firstName")}
           variant="outlined"
@@ -107,6 +84,7 @@ const SignUp = () => {
           fullWidth
           required
         />
+
         <TextField
           {...register("password")}
           variant="outlined"
@@ -117,6 +95,7 @@ const SignUp = () => {
           fullWidth
           required
         />
+
         <Button
           type="submit"
           fullWidth

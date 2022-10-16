@@ -17,7 +17,6 @@ import {
 } from "../../api/account-mutation";
 import { PRODUCT } from "../../api/product-mutation";
 import { useQuery } from "@apollo/client";
-import { log } from "console";
 import {useNavigate} from 'react-router-dom';
 
 import {
@@ -69,6 +68,7 @@ const Login = () => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(loginReducer, initialState);
   const navigate = useNavigate();
+	const [loginUser] = useLoginAccountMutation();
 
   useEffect(() => {
     if (state.username.trim() && state.password.trim()) {
@@ -84,7 +84,7 @@ const Login = () => {
     }
   }, [state.username, state.password]);
 
-	const [loginUser] = useLoginAccountMutation()
+
   const handleLogin = async () => {
     let isCheckLogin = false;
 
@@ -95,6 +95,7 @@ const Login = () => {
       },
     }).then(data => {
       isCheckLogin = data?.data?.loginUser ?? false;
+      // save isCheckLogin in localStorage check if login or logout or not registered
       localStorage.setItem("isCheckLogin",isCheckLogin.toString());
     });
 

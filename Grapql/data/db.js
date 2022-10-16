@@ -44,6 +44,11 @@ const mongoDataMethods = {
     },
     createCheckout : async args => {
         var productCheckout = JSON.parse(JSON.stringify(args.product));
+
+        if( productCheckout.length <= 0 ) {
+            return 0;
+        }
+
         const newOrder = new Checkout(args);
         var checkOut = await newOrder.save();
         for(var i = 0 ; i< productCheckout.length; i++) {
@@ -55,6 +60,11 @@ const mongoDataMethods = {
     },
     createCheckoutForGuest : async args => {
         var productCheckoutForGuest = JSON.parse(JSON.stringify(args.product));
+        
+        if( productCheckoutForGuest.length <= 0 ) {
+            return 0;
+        }
+
         const newOrder = new CheckoutForGuest(args);
         var checkOut = await newOrder.save();
         for(var i = 0 ; i< productCheckoutForGuest.length; i++) {

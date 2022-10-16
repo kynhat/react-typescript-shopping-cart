@@ -12,3 +12,4 @@
 - vào graphql: http://localhost:4000/graphql (tạo dư liệu)
  - mongodb+srv://nhatky:<password>@cluster0.yvd52ow.mongodb.net/?retryWrites=true&w=majority
 - https://wanago.io/2021/03/01/graphql-apollo-client-react-typescript/
+- Sự dụng localStorage để lưu biến check login

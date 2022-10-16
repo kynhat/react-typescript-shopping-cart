@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
 	const classes = useStyles();
   const navigate = useNavigate();
+  const isCheckLogin = localStorage.getItem("isCheckLogin");
 
   const handleClick = ()=> {
     navigate('/login')
@@ -45,10 +46,15 @@ const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Home
           </Typography>
           
-          <Button color="inherit" onClick={handleClick}>Logout</Button>
+          { isCheckLogin === "true" &&
+            <Button color="inherit" onClick={handleClick}>Logout</Button>
+          }
+
+          { isCheckLogin === "false" &&
+            <Button color="inherit" onClick={handleClick}>Login</Button>
+          }
         </Toolbar>
       </AppBar>
     </div>

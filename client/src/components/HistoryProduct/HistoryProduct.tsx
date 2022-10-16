@@ -1,7 +1,6 @@
-
 import Item from "../Item/Item";
 import Cart from "../Cart/Cart";
-import Drawer from "@material-ui/core/Drawer";
+import { makeStyles, Button } from "@material-ui/core";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
@@ -9,9 +8,12 @@ import Badge from "@material-ui/core/Badge";
 import Navbar from "../Navbar/Navbar";
 import { GetCheckout } from "../../api/checkout-mutation";
 // Styles
-import { Wrapper, StyledButton } from "./HistoryProduct.styles";
-import { DataGrid } from '@mui/x-data-grid';
+import { Wrapper } from "./HistoryProduct.styles";
+import { DataGrid } from "@mui/x-data-grid";
 // Types
+import logoSuccess from "../../image/images.png";
+import {useNavigate} from 'react-router-dom';
+
 export type CartItemType = {
   name: any;
   id: number;
@@ -23,79 +25,77 @@ export type CartItemType = {
   amount: number;
 };
 
-
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-      field: 'amount',
-      headerName: 'Tổng tiền đơn hàng',
-      width: 300,
-      editable: true,
-    },
-    {
-      field: 'product',
-      headerName: 'Sản phẩm',
-      width: 500,
-      editable: true,
-    },
-  ];
-  
-  // const rows = [
-  //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  //   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  //   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  //   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  //   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  //   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  //   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  //   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  //   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  // ];
-
+const columns = [
+  { field: "id", headerName: "ID", width: 90 },
+  {
+    field: "amount",
+    headerName: "Tổng tiền đơn hàng",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "product",
+    headerName: "Sản phẩm",
+    width: 200,
+    editable: true,
+  },
+];
 const rows = [] as any;
 
 const HistoryProduct = () => {
-  // const { data, isLoading, error } = useQuery<CartItemType[]>(
-  //   "products",
-  //   getProducts
-  // );
-
-
-
   const listCheckout = GetCheckout();
+  const navigate = useNavigate();
+
   if (listCheckout == undefined) {
     return <LinearProgress />;
   }
 
-
   listCheckout.checkouts.forEach((element: any, id: any) => {
     const listNameProduct = [] as any;
     element.productcheckouts.forEach((element: any) => {
-      listNameProduct.push(element.name)
+      listNameProduct.push(element.name);
     });
 
     rows.push({
       id: id,
       amount: element.amount,
-      address: element.address,
-      product: listNameProduct.join(',')
+      product: listNameProduct.join(","),
     });
   });
-  
+
+  const handleCheckout = () => {
+    navigate('/')
+  };
+
   return (
     <Wrapper>
       <Navbar />
 
-      <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
-    </div>
+      <div style={{margin: "5% auto"}}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img style={{ width: "20%", marginBottom: "5%" }} src={logoSuccess} />
+        </div>
+
+        <div style={{textAlign: "center"}}>
+          <h2>Order Success</h2>
+        </div>
+
+        <div style={{ height: 300, width: "100%" }}>
+          <DataGrid rows={rows} columns={columns} hideFooterPagination />
+        </div>
+
+        <div style={{textAlign: "center", marginTop: "5%"}}>
+        <Button
+          size="large"
+          disableElevation
+          variant="contained"
+          onClick={() => handleCheckout()}
+        >
+          back to product page
+        </Button>
+        </div>
+
+      </div>
     </Wrapper>
   );
 };

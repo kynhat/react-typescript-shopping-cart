@@ -7,7 +7,7 @@ import { CreateCheckoutForguestMutation } from "../../api/checkoutforguest-mutat
 import TextField from "@material-ui/core/TextField";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
-import { log } from "console";
+import {useNavigate} from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,15 +35,6 @@ type RegistationCartType = {
   email: string;
 };
 
-// const initialState: State = {
-//   address: "",
-//   firstname: "",
-//   amount: 0,
-//   phone: 0,
-//   lastname: "",
-//   email: "",
-// };
-
 const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
   const classes = useStyles();
   const [address, setAddress] = useState<any | null>("");
@@ -62,7 +53,7 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
   const [createCheckout] = CreateCheckoutMutation();
   const [createCheckoutForGuest] = CreateCheckoutForguestMutation();
-
+  const navigate = useNavigate();
   const handleCheckout = async (items: CartItemType[]) => {
     let arrFormatItems = [] as any;
     let object = {};
@@ -81,30 +72,43 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
 
     if (isCheckLogin) {
       // Đăng ký cho khách hàng đã có tài khoản
-      await createCheckout({
-        variables: {
-          address: "",
-          amount: parseInt(calculateTotal(items).toFixed(2)),
-          product: arrFormatItems,
-        },
-      }).then(data => {
-        cartItems = [];
-      });
+      if(arrFormatItems.length > 0) {
+        await createCheckout({
+          variables: {
+            address: "",
+            amount: parseInt(calculateTotal(items).toFixed(2)),
+            product: arrFormatItems,
+          },
+        }).then((rep: any) => {
+          console.log("data", rep.data['createCheckout']);
+          if(rep?.data?.createCheckout > 0) {
+            navigate('/historyProduct');
+          }
+        });
+      } else {
+        alert("No products yet, please come back to the store");
+      }
     } else {
       // Đăng ký cho khách hàng chưa đăng ký tài khoản
-      await createCheckoutForGuest({
-        variables: {
-          address: address.value,
-          firstname: firstname.value,
-          phone: phone.value,
-          lastname: lastname.value,
-          email: email.value,
-          amount: parseInt(calculateTotal(items).toFixed(2)),
-          product: arrFormatItems,
-        },
-      }).then(data => {
-        cartItems = [];
-      });
+      if(arrFormatItems.length > 0) {
+        await createCheckoutForGuest({
+          variables: {
+            address: address.value,
+            firstname: firstname.value,
+            phone: phone.value,
+            lastname: lastname.value,
+            email: email.value,
+            amount: parseInt(calculateTotal(items).toFixed(2)),
+            product: arrFormatItems,
+          },
+        }).then((rep: any)  => {
+          if(rep?.data?.createCheckout > 0) {
+            navigate('/historyProduct');
+          }
+        });
+      } else {
+        alert("No products yet, please come back to the store");
+      }
     }
   };
 
