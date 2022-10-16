@@ -2,3 +2,13 @@
 - file schema gồm query (truy vấn cơ sơ dư liệu), mutation dùng để thao tác như edit, add, delete(sường cơ sơ dữ liệu)
 - resolvers phụ thuộc vào schema để thao tác dư liệu trong database
 - model là build ra entity của mongodb
+- tài liệu tham khảo, db của mongodb; 
+  -https://www.youtube.com/watch?v=1UMNUbtzQXk
+  -https://www.youtube.com/watch?v=YyUWW04HwKY&t=8s
+  -https://cloud.mongodb.com/v2/634bc92ab9e9de66367221b3#metrics/replicaSet/634bc96af255c7098e0a4f90/explorer/test/products/find
+   userName: nhatky
+   passwd: ky123456
+- https://studio.apollographql.com/sandbox/explorer
+- vào graphql: http://localhost:4000/graphql (tạo dư liệu)
+ - mongodb+srv://nhatky:<password>@cluster0.yvd52ow.mongodb.net/?retryWrites=true&w=majority
+- https://wanago.io/2021/03/01/graphql-apollo-client-react-typescript/

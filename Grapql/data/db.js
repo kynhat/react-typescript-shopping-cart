@@ -10,20 +10,20 @@ const mongoDataMethods = {
     getAllCheckouts: async () => await Checkout.find(),
     getCheckoutById: async (id) => await Checkout.findById(id),
     getCheckoutForGuestById: async (id) => await CheckoutForGuest.findById(id),
-    getAllProductCheckouts: async() => await ProductCheckout.find(),
+    getAllProductCheckouts: async (condition = null) => await condition === null? await ProductCheckout.find(): await ProductCheckout.find(condition),
     getAllCheckoutForGuests: async () => await CheckoutForGuest.find(),
     getAllProductCheckoutsForGuests: async() => await ProductCheckoutForGuest.find(),
     getAccountLogin: async (username,password) => {
-        // password = md5(password);
+        password = md5(password);
         var user = await Account.findOne({
             username,
             password
         })
-        // if(!user) return false;
+        if(!user) return false;
         return true;
     },
     getAccountLoginByMutation: async ({username,password}) => {
-        // password = md5(password);
+        password = md5(password);
         var user = await Account.findOne({
             username,
             password
@@ -37,7 +37,7 @@ const mongoDataMethods = {
         return 1;
     },
     createAccount : async args => {
-        // args.password = md5(args.password);
+        args.password = md5(args.password);
         const newAccount = new Account(args);
         await newAccount.save();
         return true;

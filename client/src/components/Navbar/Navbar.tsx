@@ -38,6 +38,7 @@ const Navbar = () => {
 
   const handleClick = ()=> {
     navigate('/login')
+    localStorage.setItem("isCheckLogin", 'false');
   }
 	return (
   <div className={classes.root}>
@@ -46,6 +47,7 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Home
           </Typography>
+          
           <Button color="inherit" onClick={handleClick}>Logout</Button>
         </Toolbar>
       </AppBar>

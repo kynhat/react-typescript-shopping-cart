@@ -4,6 +4,6 @@ export enum ActionType {
  SETISBUTTONDISABLED = "setIsButtonDisabled",
  LOGINSUCCESS = "loginSuccess",
  LOGINFAILED = "loginFailed",
- SETISERROR = "setIsError"
+ SETISERROR = "setIsError",
 
 }

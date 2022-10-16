@@ -30,6 +30,7 @@ export function CreateCheckoutMutation() {
     return useMutation<CreateCheckoutResponse>(CREATE_CHECKOUT);
 }
 
-// export function getCheckout() {
-//     return useQuery(GET_CHECTOUT);
-// }
+export function GetCheckout() {
+  const {data} = useQuery(GET_CHECTOUT);
+  return data;
+}

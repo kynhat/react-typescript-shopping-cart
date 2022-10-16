@@ -9,7 +9,7 @@ const mongoDataMethods = require('./data/db');
 
 const connectDB = async () => {
     try{
-        await mongoose.connect('mongodb+srv://hathanhdung1995:1234@testgraph.qbydxiv.mongodb.net/?retryWrites=true&w=majority', {
+        await mongoose.connect('mongodb+srv://kynhat:ky123456@cluster0.tqofnko.mongodb.net/?retryWrites=true&w=majority', {
 			useNewUrlParser: true,
 			useUnifiedTopology: true
         });

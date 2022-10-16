@@ -15,6 +15,7 @@ import { Wrapper, StyledButton } from "./HomePage.styles";
 
 // Types
 export type CartItemType = {
+  name: any;
   id: number;
   category: string;
   description: string;

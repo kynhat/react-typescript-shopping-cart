@@ -68,42 +68,8 @@ const initialState: State = {
 const Login = () => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(loginReducer, initialState);
-  // const [createAccount] = useAccountMutation();
   const navigate = useNavigate();
-  const [createCheckout] = CreateCheckoutMutation();
 
-
-
-
-  // const Registration = async () => {
-  //   try {
-  //     await createCheckout({
-  //       variables: {
-  //         address: "caokynhat",
-  //         amount: 12000,
-  //         product: [
-  //           {
-  //             name: 'tivi',
-  //             price: 1000,
-  //             quantity: 2,
-  //             totalprice: 2000
-  //           },
-  //           {
-  //             name: 'ssse dap',
-  //             price: 1000,
-  //             quantity: 2,
-  //             totalprice: 2000
-  //           }
-  //         ],
-  //       },
-  //     }).then(data => {
-  //       console.log("data", data);
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // Registration();
   useEffect(() => {
     if (state.username.trim() && state.password.trim()) {
       dispatch({
@@ -118,8 +84,7 @@ const Login = () => {
     }
   }, [state.username, state.password]);
 
-	const [loginUser, { loading: _loginUserLoading, error }] = useLoginAccountMutation()
-
+	const [loginUser] = useLoginAccountMutation()
   const handleLogin = async () => {
     let isCheckLogin = false;
 
@@ -130,6 +95,7 @@ const Login = () => {
       },
     }).then(data => {
       isCheckLogin = data?.data?.loginUser ?? false;
+      localStorage.setItem("isCheckLogin",isCheckLogin.toString());
     });
 
     if (isCheckLogin) {

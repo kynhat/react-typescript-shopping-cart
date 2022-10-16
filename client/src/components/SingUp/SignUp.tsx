@@ -17,7 +17,7 @@ import {
 import {useNavigate} from 'react-router-dom';
 
 interface IFormInput {
-  email: string;
+  // email: string;
   firstName: string;
   password: string;
 }
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const schema = yup.object().shape({
-  email: yup.string().required().email(),
+  // email: yup.string().required().email(),
   firstName: yup.string().required().min(2).max(25),
   password: yup.string().required().min(8).max(120),
 });
@@ -89,7 +89,7 @@ const SignUp = () => {
         Sign Up Form
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <TextField
+        {/* <TextField
           {...register("email")}
           variant="outlined"
           margin="normal"
@@ -97,12 +97,12 @@ const SignUp = () => {
           error={!!errors.email?.message}
           fullWidth
           required
-        />
+        /> */}
         <TextField
           {...register("firstName")}
           variant="outlined"
           margin="normal"
-          label="First Name"
+          label="User name"
           error={!!errors.firstName?.message}
           fullWidth
           required
