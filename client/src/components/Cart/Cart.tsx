@@ -80,7 +80,6 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
             product: arrFormatItems,
           },
         }).then((rep: any) => {
-          console.log("data", rep.data['createCheckout']);
           if(rep?.data?.createCheckout > 0) {
             navigate('/historyProduct');
           }

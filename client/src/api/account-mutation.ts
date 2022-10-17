@@ -9,14 +9,6 @@ interface LoginResponse {
   loginUser:boolean;
 }
 
-
-
-// export interface LoginAccountVariables {
-//   // username: string;
-//   // password: string;
-//   data : any;
-// }
-
 const CREATE_ACCOUNT = gql`
  mutation createAccount($username: String, $password: String) {
   createUser( username: $username, password: $password )

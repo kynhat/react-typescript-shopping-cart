@@ -6,13 +6,11 @@ import SignUp from './components/SingUp/SignUp';
 import HomePage from "./components/Home/HomePage";
 import HistoryProduct from "./components/HistoryProduct/HistoryProduct";
 import {   Routes, Route } from "react-router-dom";
-import Modal from "./components/Modal/modal";
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<HomePage/>} />
-        <Route path="/modal" element={<Modal/>} />
         <Route path="/historyProduct" element={<HistoryProduct/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signUp" element={<SignUp/>} />
