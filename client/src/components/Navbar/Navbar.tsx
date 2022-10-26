@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core'
 import { useContext, useState, ChangeEvent, useEffect } from 'react'
 import {useNavigate} from 'react-router-dom';
+import { log } from 'console';
 
 const useStyles = makeStyles((theme) => ({
  root: {
@@ -35,19 +36,24 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
 	const classes = useStyles();
   const navigate = useNavigate();
-  const isCheckLogin = localStorage.getItem("isCheckLogin");
+  let isCheckLogin = localStorage.getItem("isCheckLogin");
+
+  if(isCheckLogin == null) {
+    isCheckLogin = 'false';
+  }
 
   const handleClick = ()=> {
     navigate('/login')
     localStorage.setItem("isCheckLogin", 'false');
   }
+
 	return (
   <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
           </Typography>
-          
+
           { isCheckLogin === "true" &&
             <Button color="inherit" onClick={handleClick}>Logout</Button>
           }

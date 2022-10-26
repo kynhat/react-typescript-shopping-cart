@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
+import './cart.scss';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -137,7 +138,7 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
 
   return (
     <Wrapper>
-      <h2>Your Shopping Cart</h2>
+      <h2 className="DottedBox">Your Shopping Cart</h2>
       {cartItems.length === 0 ? <p>No items in cart.</p> : null}
       {cartItems.map(item => (
         <CartItem
