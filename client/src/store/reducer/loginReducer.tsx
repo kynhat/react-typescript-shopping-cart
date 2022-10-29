@@ -5,8 +5,8 @@ type State = {
   username: string;
   password: string;
   isButtonDisabled: boolean;
-  helperText: string;
   isError: boolean;
+  helperText: string;
 };
 
 const reducer = (state: State, action: Action) => {

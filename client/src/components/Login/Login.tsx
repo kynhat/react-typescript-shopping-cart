@@ -6,9 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
-import { Action } from "../Store/actions";
-import { ActionType } from "../Store/action-types";
-import loginReducer from "../Store/reducer/loginReducer";
+import { Action } from "../../store/actions";
+import { ActionType } from "../../store/action-types";
+import loginReducer from "../../store/reducer/loginReducer";
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import {
   useAccountMutation,
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     header: {
       textAlign: "center",
-      background: "#212121",
+      background: "#3f51b5",
       color: "#fff",
     },
     card: {
@@ -173,7 +173,7 @@ const Login = () => {
         </CardContent>
         <CardActions>
           <Button
-            variant="contained"
+            variant="outlined"
             size="large"
             color="secondary"
             className={classes.loginBtn}
@@ -183,7 +183,7 @@ const Login = () => {
             Login
           </Button>
           <Button
-            variant="contained"
+            variant="outlined"
             size="large"
             color="primary"
             className={classes.loginBtn}

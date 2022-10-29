@@ -1,4 +1,4 @@
-import { ActionType } from '../action-types/index'
+import { ActionType } from '../../store/action-types';
 interface UserName {
   type: ActionType.SETUSERNAME;
   payload: string;

@@ -55,11 +55,11 @@ const Navbar = () => {
           </Typography>
 
           { isCheckLogin === "true" &&
-            <Button color="inherit" onClick={handleClick}>Logout</Button>
+            <Button color="inherit" variant='outlined' onClick={handleClick}>Logout</Button>
           }
 
           { isCheckLogin === "false" &&
-            <Button color="inherit" onClick={handleClick}>Login</Button>
+            <Button color="inherit" variant='outlined' onClick={handleClick}>Login</Button>
           }
         </Toolbar>
       </AppBar>
